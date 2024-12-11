@@ -177,6 +177,8 @@ int main()
 }
 
 //2.cpp
+//Write C++ program to implement Cohen Southerland line clipping algorithm
+
 #include<iostream>
 #include<stdlib.h>
 #include<math.h>
@@ -330,6 +332,8 @@ Coordinate Lineclip::resetendpt(Coordinate p1,Coordinate p2)
 }
 
 //3.cpp
+//Write C++ program to draw the following pattern. Use DDA line and
+//Bresenham‘s circledrawing algorithm. Apply the concept of encapsulation.
 
 #include<iostream>
 #include<graphics.h>
@@ -514,6 +518,14 @@ int main()
 }
 
 //4.cpp
+//Write C++ program to draw 2-D object and perform following basic 
+//transformations, Scaling, Translation c) Rotation. Apply the concept of
+//operator overloading.
+//OR
+//Write C++ program to implement translation, rotation and scaling
+//transformations onequilateral triangle and rhombus. Apply the concept of
+//operator overloading.
+
 
 #include<iostream> 
 #include<graphics.h> 
@@ -648,6 +660,9 @@ void matmul(float p[10])
 }
 
 //5.cpp
+//Write C++ program to generate snowflake using concept of fractals.
+//OR
+//Write C++ program to generate Hilbert curve using concept of fractals.
 
 #include<iostream>
 #include<graphics.h>
@@ -707,6 +722,12 @@ int main(){
 }
 
 //6.cpp
+//Write C++ program to draw 3-D cube and perform following transformations 
+//on it using OpenGL i) Scaling ii) Translation iii) Rotation about an axis
+//(X/Y/Z).
+//OR
+//Write OpenGL program to draw Sun Rise and Sunset.
+
 #include<iostream> 
 #include<stdlib.h> 
 #ifdef APPLE 
@@ -873,6 +894,11 @@ int main(int argc,char** argv)
 }
 
 //7.cpp
+//Write a C++ program to implement bouncing ball using sine wave form.
+//Apply the conceptof polymorphism.
+// OR
+//Write C++ program to draw man walking in the rain with an umbrella. Apply
+//the concept ofpolymorphism.
 
 #include<iostream>
 //#include<conio.h>
