@@ -79,21 +79,25 @@ while i<=6:
 //withdrawal. Suppose the following input is supplied to the program: D 300, D 300, W 200, D 100. Then, 
 //the output should be: 500
 
-Accountbalance = 10000 
-a=int(input("Enter amount:")) 
-balance=str(input("Press D for deposite and W for withdraw:")) 
-if(balance=="D"): 
- Accountbalance= Accountbalance + a 
- print("Current Account balance is:",Accountbalance) 
-elif(balance=="W"): 
- 
- if(Accountbalance>=balance): 
- c=Accountbalance - a 
- print("Balance amount is:",c) 
- else: 
- print( "insufficient balance:",Accountbalance) 
-else: 
- print("Invalid operation") 
+
+Accountbalance = 10000
+a = int(input("Enter amount:"))
+balance = str(input("Press D for deposit and W for withdraw:"))
+
+if balance == "D":
+    Accountbalance = Accountbalance + a
+    print("Current Account balance is:", Accountbalance)
+
+elif balance == "W":
+    if Accountbalance >= a:
+        c = Accountbalance - a
+        print("Balance amount is:", c)
+    else:
+        print("Insufficient balance:", Accountbalance)
+
+else:
+    print("Invalid operation")
+
 
 //  Write a Python program to compute following computation on matrix:
 //a) Addition of two matrices 
@@ -101,124 +105,128 @@ else:
 //c) Multiplication of two matrices 
 //d) Transpose of a matrix
 
-def Addition(r,c,m,m1): 
- print("Addition of two matrices using list comprehension:") 
- print([[(m[i][j]+m1[i][j]) for j in range(c)] for i in range(r)]) 
- 
- print("Addition of two matrices without using list comprehension:") 
- for i in range(r): 
-   for j in range(c): 
-     print(m[i][j]+m1[i][j],end=" ") 
-   print() 
- 
-def Subtraction(r,c,m,m1): 
- print("Subtraction of two matrices using list comprehension:") 
- print([[(m[i][j]-m1[i][j]) for j in range(c)] for i in range(r)]) 
- 
- print("Subtraction of two matrices without using list 
-comprehension:") 
- for i in range(r): 
-   for j in range(c): 
-     print(m[i][j]-m1[i][j],end=" ") 
-   print() 
- 
-def Transpose(r,c,m): 
- print("Transpose of 1st matrix using list comprehension:") 
- print([[(m[i][j]) for j in range(c)] for i in range(r)]) 
- 
- print("Transpose of 1st matrix without using list comprehension:") 
- for i in range(r): 
-   for j in range(c): 
-     print(m[j][i],end=" ") 
-   print() 
- 
-def Transpose1(r,c,m1): 
- print("Transpose of 2nd matrix without using list comprehension:") 
- print([[(m1[i][j]) for j in range(c)] for i in range(r)]) 
- 
- print("Transpose of 2nd matrix without using list comprehension:") 
- for i in range(r): 
-   for j in range(c): 
-     print(m1[j][i],end=" ") 
-   print() 
- 
-def Multiplication(r,c,m,m1): 
- print("Multiplication of matrices using list comprehension:") 
- 
- if r==c: 
-   for i in range(r): 
-     for j in range(c): 
-       sum=0 
-         for k in range(c): 
-           sum=sum+(m[i][k]*m1[k][j]) 
-   print(sum,end=" ") 
- 
- print() 
- else: 
-   print("Operation invalid") 
-m=[] 
-r=int(input("Enter the no of rows:")) 
-c=int(input("Enter the no of columns:")) 
-for i in range(r): 
-   a=[] 
-     for j in range(c): 
-     ele=int(input("Enter elements:")) 
-     a.append(ele) 
- m.append(a) 
- 
-print("1st matrix is:") 
-for i in range(r): 
-   for j in range(c): 
-       print(m[i][j],end=" ") 
-   print() 
-m1=[] 
-for i in range(r): 
- a=[] 
- for j in range(c): 
-   ele=int(input("Enter elements:")) 
-   a.append(ele) 
- m1.append(a) 
- 
-print("2nd matrix is:") 
-for i in range(r): 
-   for j in range(c): 
-     print(m1[i][j],end=" ") 
- print() 
- 
-i=1 
-while i<=6: 
- print("Please press 1 for matrix addition;") 
- print("Please press 2 for matrix subtraction:") 
- print("Please press 3 for traspose of matrix 1:") 
- print("Please press 4 for transpose of matrix 2:") 
- print("Please press 5 for multiplication of matrix:") 
- print("Please press 6 for none:") 
- opt=int(input("Enter your choice:")) 
- match opt: 
- 
- case 1: 
-   add=Addition(r,c,m,m1) 
-   print("Addition is:",add) 
- 
- case 2: 
-   sub=Subtraction(r,c,m,m1) 
-   print("Subtraction is:",sub)
-     
- case 3: 
-   trp=Transpose(r,c,m) 
-   print("Transpose of 1st matrix is:",trp) 
- 
- case 4: 
-   trp1=Transpose1(r,c,m1) 
-   print("Transpose of 2nd matrix is:") 
- 
- 
- case 5: 
-   mlt=Multiplication(r,c,m,m1) 
-   print("Multilication of matrix is:") 
- 
- case 6: 
-   print("You opted for none!") 
+def Addition(r, c, m, m1):
+    print("Addition of two matrices using list comprehension:")
+    print([[(m[i][j] + m1[i][j]) for j in range(c)] for i in range(r)])
+
+    print("Addition of two matrices without using list comprehension:")
+    for i in range(r):
+        for j in range(c):
+            print(m[i][j] + m1[i][j], end=" ")
+        print()
+
+def Subtraction(r, c, m, m1):
+    print("Subtraction of two matrices using list comprehension:")
+    print([[(m[i][j] - m1[i][j]) for j in range(c)] for i in range(r)])
+
+    print("Subtraction of two matrices without using list comprehension:")
+    for i in range(r):
+        for j in range(c):
+            print(m[i][j] - m1[i][j], end=" ")
+        print()
+
+def Transpose(r, c, m):
+    print("Transpose of 1st matrix using list comprehension:")
+    print([[(m[i][j]) for j in range(c)] for i in range(r)])
+
+    print("Transpose of 1st matrix without using list comprehension:")
+    for i in range(r):
+        for j in range(c):
+            print(m[j][i], end=" ")
+        print()
+
+def Transpose1(r, c, m1):
+    print("Transpose of 2nd matrix using list comprehension:")
+    print([[(m1[i][j]) for j in range(c)] for i in range(r)])
+
+    print("Transpose of 2nd matrix without using list comprehension:")
+    for i in range(r):
+        for j in range(c):
+            print(m1[j][i], end=" ")
+        print()
+
+def Multiplication(r, c, m, m1):
+    print("Multiplication of matrices using list comprehension:")
+
+    if r == c:
+        for i in range(r):
+            for j in range(c):
+                sum = 0
+                for k in range(c):
+                    sum = sum + (m[i][k] * m1[k][j])
+                print(sum, end=" ")
+
+            print()
+    else:
+        print("Operation invalid")
+
+# Main program
+m = []
+r = int(input("Enter the number of rows:"))
+c = int(input("Enter the number of columns:"))
+
+for i in range(r):
+    a = []
+    for j in range(c):
+        ele = int(input("Enter elements:"))
+        a.append(ele)
+    m.append(a)
+
+print("1st matrix is:")
+for i in range(r):
+    for j in range(c):
+        print(m[i][j], end=" ")
+    print()
+
+m1 = []
+for i in range(r):
+    a = []
+    for j in range(c):
+        ele = int(input("Enter elements:"))
+        a.append(ele)
+    m1.append(a)
+
+print("2nd matrix is:")
+for i in range(r):
+    for j in range(c):
+        print(m1[i][j], end=" ")
+    print()
+
+i = 1
+while i <= 6:
+    print("Please press 1 for matrix addition;")
+    print("Please press 2 for matrix subtraction:")
+    print("Please press 3 for transpose of matrix 1:")
+    print("Please press 4 for transpose of matrix 2:")
+    print("Please press 5 for multiplication of matrix:")
+    print("Please press 6 for none:")
+    opt = int(input("Enter your choice:"))
+    
+    match opt:
+        case 1:
+            add = Addition(r, c, m, m1)
+            print("Addition is:", add)
+
+        case 2:
+            sub = Subtraction(r, c, m, m1)
+            print("Subtraction is:", sub)
+
+        case 3:
+            trp = Transpose(r, c, m)
+            print("Transpose of 1st matrix is:", trp)
+
+        case 4:
+            trp1 = Transpose1(r, c, m1)
+            print("Transpose of 2nd matrix is:", trp1)
+
+        case 5:
+            mlt = Multiplication(r, c, m, m1)
+            print("Multiplication of matrix is:", mlt)
+
+        case 6:
+            print("You opted for none!")
+
+
 
 
 //Write a Python program to store first year percentage of students in array. 
@@ -227,53 +235,57 @@ while i<=6:
 //a) Selection Sort
 //b) Bubble sort and display top five scores
 
-def Bubble(a,n): 
- for i in range(n): 
-   for j in range(0,n-i-1): 
-     if(a[j]>a[j+1]): 
-       temp=a[j] 
-       a[j]=a[j+1] 
-       a[j+1]=temp 
- 
- for i in range(n): 
-   print("The sorted list using bubble sort is:",a[i]) 
-     return a[i] 
- 
-def Selection(a,n): 
- for i in range(n): 
-   min=i 
-     for j in range(i+1,n): 
-       if(a[j]<a[min]): 
-         min=j 
- 
-     temp=a[i] 
-     a[i]=a[min] 
-     a[min]=temp 
- for i in range(n): 
- print("The sorted list using selection sort is:",a[i]) 
- return a[i] 
- 
-a=[] 
-n=int(input("Enter number of elements you want in list:")) 
-  for i in range(n): 
-     m=float(input("Enter elements:")) 
-     a.append(m) 
-s=1 
-while s<=3: 
- print("please press'1' for bubble sort:") 
- print("please press'2' for selection sort:") 
- print("please press '3'for none:") 
- opt=int(input("Enter your choice: ")) 
- match opt: 
- 
- case 1: 
-   bubl=Bubble(a,n) 
- 
- case 2: 
-   selt=Selection(a,n) 
- 
- case 3: 
-   print("you optrd for none")
+def Bubble(a, n): 
+    for i in range(n): 
+        for j in range(0, n-i-1): 
+            if a[j] > a[j+1]: 
+                temp = a[j] 
+                a[j] = a[j+1] 
+                a[j+1] = temp 
+    
+    for i in range(n): 
+        print("The sorted list using bubble sort is:", a[i]) 
+    return a
+
+def Selection(a, n): 
+    for i in range(n): 
+        min = i 
+        for j in range(i+1, n): 
+            if a[j] < a[min]: 
+                min = j 
+        
+        temp = a[i] 
+        a[i] = a[min] 
+        a[min] = temp 
+    
+    for i in range(n): 
+        print("The sorted list using selection sort is:", a[i]) 
+    return a
+
+# Main program
+a = [] 
+n = int(input("Enter number of elements you want in list:")) 
+
+for i in range(n): 
+    m = float(input("Enter elements:")) 
+    a.append(m)
+
+s = 1 
+while s <= 3: 
+    print("Please press '1' for bubble sort:")
+    print("Please press '2' for selection sort:")
+    print("Please press '3' for none:")
+    
+    opt = int(input("Enter your choice: ")) 
+    
+    match opt: 
+        case 1: 
+            bubl = Bubble(a, n)
+        case 2: 
+            selt = Selection(a, n)
+        case 3: 
+            print("You opted for none")
+
 
 
 //Write a Python program to store second year percentage of students in array. 
@@ -282,89 +294,99 @@ while s<=3:
 //a) Insertion sort
 //b) Shell Sort and display top five scores
 
-def Insertion(a,n): 
- for i in range(n): 
-   temp= a[i] 
-   j=i-1 
-     while(j>=0 and a[j]>temp): 
-       a[j+1]=a[j] 
-        j=j-1 
- 
-     a[j+1]=temp 
- 
- print("The sorted list using insertion sort is:",) 
- for i in range(n): 
-   print(a[i]) 
- 
-def ShellSort(a,n): 
- d=n//2 
-   while d>0: 
-     for i in range(d,n): 
-       temp=a[i] 
-       j=i 
-       while j>=d and a[j-1]>temp: 
-         a[j]=a[j-d] 
-         j=j-d 
- 
-       a[j]=temp 
-     d//=2 
- print("The sorted list using shell sort is:",) 
- for i in range(n): 
-   print(a[i]) 
- 
-a=[] 
-n=int(input("Enter number of elements you want in list:")) 
+def Insertion(a, n): 
+    for i in range(1, n):  # Start from index 1 as the first element is already sorted
+        temp = a[i] 
+        j = i - 1 
+        while j >= 0 and a[j] > temp: 
+            a[j + 1] = a[j] 
+            j = j - 1 
+
+        a[j + 1] = temp 
+
+    print("The sorted list using insertion sort is:",)
+    for i in range(n): 
+        print(a[i]) 
+
+def ShellSort(a, n): 
+    d = n // 2 
+    while d > 0: 
+        for i in range(d, n): 
+            temp = a[i] 
+            j = i 
+            while j >= d and a[j - d] > temp: 
+                a[j] = a[j - d] 
+                j = j - d 
+
+            a[j] = temp 
+        d //= 2  # Reduce gap size
+    
+    print("The sorted list using shell sort is:",)
+    for i in range(n): 
+        print(a[i]) 
+
+# Main program
+a = [] 
+n = int(input("Enter number of elements you want in list:")) 
+
 for i in range(n): 
- m=float(input("Enter elements:")) 
- a.append(m) 
-s=1 
-while s<=3: 
- print("please press '1' for insertion sort:") 
- print("please press '2' for insertion sort:") 
- print("please press '3'for none:") 
- opt=int(input("Enter your choice: ")) 
- match opt: 
+    m = float(input("Enter elements:")) 
+    a.append(m) 
+
+s = 1 
+while s <= 3: 
+    print("Please press '1' for insertion sort:")
+    print("Please press '2' for shell sort:")
+    print("Please press '3' for none:")
+    
+    opt = int(input("Enter your choice: ")) 
+    
+    match opt: 
+        case 1: 
+            inst = Insertion(a, n)
+        case 2: 
+            shell = ShellSort(a, n)
+        case 3: 
+            print("You opted for none.")
  
- case 1: 
-   inst=Insertion(a,n) 
- 
- case 2: 
-   shell=ShellSort(a,n) 
- 
- case 3: 
-   print("you optrd for none") 
 
 
 //Write a python program to store first year percentage of students in array. 
 //Write function for sorting array of floating point numbers in ascending order 
 //using quick sort and display top five scores.     
 
-def quick_sort(arr): 
- """Sorts an array using the quick sort algorithm.""" 
- if len(arr) <= 1: 
- return arr 
- pivot = arr[len(arr) // 2] 
- left = [x for x in arr if x < pivot] 
- middle = [x for x in arr if x == pivot] 
- right = [x for x in arr if x > pivot] 
- return quick_sort(left) + middle + quick_sort(right) 
-def main(): 
- # Input: first-year percentages of students 
- percentages = [] 
- num_students = int(input("Enter the number of students: ")) 
- 
- for i in range(num_students): 
- score = float(input(f"Enter the percentage of student {i + 
-1}: ")) 
- percentages.append(score) 
- # Sort the percentages using quick sort 
- sorted_percentages = quick_sort(percentages) 
- # Display the top five scores 
- print("Top five scores:") 
- for score in sorted_percentages[-5:]: 
- print(score) 
-if __name__ == "__main__": 
- main()
+# Quick Sort function
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]  # Choose middle element as pivot
+    left = [x for x in arr if x < pivot]  # Elements less than pivot
+    middle = [x for x in arr if x == pivot]  # Elements equal to pivot
+    right = [x for x in arr if x > pivot]  # Elements greater than pivot
+    return quick_sort(left) + middle + quick_sort(right)
+
+# Function to display top five scores
+def top_five_scores(arr):
+    # Sort the array
+    sorted_scores = quick_sort(arr)
+    
+    # Display top five scores
+    print("Top 5 scores:")
+    for i in range(min(5, len(sorted_scores))):  # Handle case where there are less than 5 scores
+        print(sorted_scores[-(i + 1)])  # Print from highest to lowest
+
+# Main program
+n = int(input("Enter the number of students: "))  # Number of students
+scores = []  # List to store the scores
+
+# Input scores from the user
+for i in range(n):
+    score = float(input(f"Enter the percentage of student {i+1}: "))
+    scores.append(score)
+
+# Display top five scores
+top_five_scores(scores)
+
 
 
 //Write a python program to store first year percentage of students in array. 
