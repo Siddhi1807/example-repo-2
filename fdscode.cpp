@@ -73,6 +73,25 @@ while i<=6:
 		case 6:
 			print("This option indictes you have choosen none!")
 
+def mark_with_highest_frequency(marks):
+    """
+    Find the mark(s) occurring most frequently, ignoring absentees.
+    """
+    valid_marks = [mark for mark in marks if mark != -1]
+    if not valid_marks:
+        return None
+    # Use a simple loop to count frequencies instead of a dictionary for simplicity
+    max_freq = 0
+    most_frequent = []
+    for mark in set(valid_marks):
+        freq = valid_marks.count(mark)
+        if freq > max_freq:
+            max_freq = freq
+            most_frequent = [mark]
+        elif freq == max_freq:
+            most_frequent.append(mark)
+    return most_frequent
+
 //Write a Python program that computes the net amount of a bank account based on a transaction log from 
 //console input. The transaction log format is shown as follows: D 100 W 200 (Withdrawal is not allowed 
 //if balance is going negative. Write functions for withdraw and deposit) D means deposit while W means 
