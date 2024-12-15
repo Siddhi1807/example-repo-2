@@ -756,63 +756,52 @@ int main() {
 //1. Operands and operator, both must be single character.
 //2. Input Postfix expression must be in a desired format.
 //3. Only '+', '-', '*' and '/ ' operators are expected.
-
 #include <iostream>
 #include <stack>
 #include <string>
 #include <cctype>
-#include <cmath>
 
 using namespace std;
 
-// Function to determine precedence of operators
+// Function to determine the precedence of operators
 int precedence(char op) {
     if (op == '+' || op == '-') return 1;
     if (op == '*' || op == '/') return 2;
     return 0;
 }
 
-// Function to check if a character is an operator
-bool isOperator(char ch) {
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
-}
-
-// Function to convert infix to postfix
+// Function to convert infix expression to postfix
 string infixToPostfix(const string& infix) {
-    stack<char> s;
+    stack<char> operators;
     string postfix;
 
     for (char ch : infix) {
-        // If the character is an operand, add it to postfix
         if (isalnum(ch)) {
+            // Operand, add directly to postfix
             postfix += ch;
-        }
-        // If the character is '(', push it onto the stack
-        else if (ch == '(') {
-            s.push(ch);
-        }
-        // If the character is ')', pop and add to postfix until '(' is encountered
-        else if (ch == ')') {
-            while (!s.empty() && s.top() != '(') {
-                postfix += s.top();
-                s.pop();
+        } else if (ch == '(') {
+            operators.push(ch);
+        } else if (ch == ')') {
+            // Pop until '(' is found
+            while (!operators.empty() && operators.top() != '(') {
+                postfix += operators.top();
+                operators.pop();
             }
-            s.pop(); // Remove '('
-        }
-        // If the character is an operator
-        else if (isOperator(ch)) {
-            while (!s.empty() && precedence(s.top()) >= precedence(ch)) {
-                postfix += s.top();
-                s.pop();
+            operators.pop(); // Remove '('
+        } else {
+            // Operator, process based on precedence
+            while (!operators.empty() && precedence(operators.top()) >= precedence(ch)) {
+                postfix += operators.top();
+                operators.pop();
             }
-            s.push(ch);
+            operators.push(ch);
         }
     }
 
-    // Pop all remaining operators from the stack
-    while (!s.empty()) {
-        postfix += s.top();
-        s.pop();
+    // Append remaining operators
+    while (!operators.empty()) {
+        postfix += operators.top();
+        operators.pop();
     }
 
     return postfix;
@@ -820,46 +809,31 @@ string infixToPostfix(const string& infix) {
 
 // Function to evaluate a postfix expression
 int evaluatePostfix(const string& postfix) {
-    stack<int> s;
+    stack<int> values;
 
     for (char ch : postfix) {
-        // If the character is a digit, push it onto the stack
-        if (isdigit(ch)) {
-            s.push(ch - '0'); // Convert char to int
-        }
-        // If the character is an operator, pop two elements and apply the operator
-        else if (isOperator(ch)) {
-            if (s.size() < 2) {
-                cerr << "Error: Insufficient operands in the expression!" << endl;
-                return -1; // Error value
-            }
-            int b = s.top(); s.pop();
-            int a = s.top(); s.pop();
+        if (isalnum(ch)) {
+            // Operand, push its value to the stack (assuming single-digit operands)
+            values.push(ch - '0');
+        } else {
+            // Operator, pop two operands and apply the operator
+            int b = values.top(); values.pop();
+            int a = values.top(); values.pop();
+
             switch (ch) {
-                case '+': s.push(a + b); break;
-                case '-': s.push(a - b); break;
-                case '*': s.push(a * b); break;
-                case '/': 
-                    if (b == 0) {
-                        cerr << "Error: Division by zero!" << endl;
-                        return -1; // Error value
-                    }
-                    s.push(a / b); break;
+                case '+': values.push(a + b); break;
+                case '-': values.push(a - b); break;
+                case '*': values.push(a * b); break;
+                case '/': values.push(a / b); break;
             }
         }
     }
 
-    if (s.size() != 1) {
-        cerr << "Error: Invalid postfix expression!" << endl;
-        return -1; // Error value
-    }
-    
-    return s.top(); // The final result
+    return values.top();
 }
 
 int main() {
     string infix;
-
     cout << "Enter an infix expression: ";
     cin >> infix;
 
@@ -867,63 +841,75 @@ int main() {
     string postfix = infixToPostfix(infix);
     cout << "Postfix expression: " << postfix << endl;
 
-    // Evaluate the postfix expression
+    // Evaluate postfix expression
     int result = evaluatePostfix(postfix);
-    if (result != -1) {
-        cout << "Evaluation result: " << result << endl;
-    }
+    cout << "Evaluation result: " << result << endl;
 
     return 0;
 }
+
+
 
 
 //In any language program mostly syntax error occurs due to unbalancing 
 //delimiter such as (),{},[]. Write C++ program using stack to check whether 
 //given expression is well parenthesized or not
 
-
 #include <iostream>
 #include <stack>
 #include <string>
 
-bool isWellParenthesized(const std::string& expression) {
-    std::stack<char> s;
+using namespace std;
+
+// Function to check if a character is an opening delimiter
+bool isOpening(char ch) {
+    return ch == '(' || ch == '{' || ch == '[';
+}
+
+// Function to check if a character is a closing delimiter
+bool isClosing(char ch) {
+    return ch == ')' || ch == '}' || ch == ']';
+}
+
+// Function to check if two delimiters are matching pairs
+bool isMatchingPair(char opening, char closing) {
+    return (opening == '(' && closing == ')') ||
+           (opening == '{' && closing == '}') ||
+           (opening == '[' && closing == ']');
+}
+
+// Function to check if the expression is well parenthesized
+bool isWellParenthesized(const string& expression) {
+    stack<char> delimiters;
+
     for (char ch : expression) {
-        // Push opening brackets onto the stack
-        if (ch == '(' || ch == '{' || ch == '[') {
-            s.push(ch);
-        }
-        // Check for closing brackets
-        else if (ch == ')' || ch == '}' || ch == ']') {
-            // If stack is empty or top doesn't match, it's unbalanced
-            if (s.empty()) return false;
-            char top = s.top();
-            s.pop();
-            if ((ch == ')' && top != '(') ||
-                (ch == '}' && top != '{') ||
-                (ch == ']' && top != '[')) {
+        if (isOpening(ch)) {
+            delimiters.push(ch);
+        } else if (isClosing(ch)) {
+            if (delimiters.empty() || !isMatchingPair(delimiters.top(), ch)) {
                 return false;
             }
+            delimiters.pop();
         }
     }
-    // In the end, the stack should be empty if well-parenthesized
-    return s.empty();
+
+    return delimiters.empty();
 }
 
 int main() {
-    std::string expression;
-
-    std::cout << "Enter an expression: ";
-    std::getline(std::cin, expression);
+    string expression;
+    cout << "Enter an expression: ";
+    cin >> expression;
 
     if (isWellParenthesized(expression)) {
-        std::cout << "The expression is well-parenthesized." << std::endl;
+        cout << "The expression is well parenthesized." << endl;
     } else {
-        std::cout << "The expression is not well-parenthesized." << std::endl;
+        cout << "The expression is not well parenthesized." << endl;
     }
 
     return 0;
 }
+
 
 
 //Queues are frequently used in computer programming, and a typical example 
