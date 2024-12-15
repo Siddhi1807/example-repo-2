@@ -401,6 +401,18 @@ print("Before Sorting : ",arr)
 quickSort(arr,0,len(arr)-1)
 
 print("After sorting : ",arr)
+	
+# Function for Displaying Top Five Percentages of Students
+
+def display_top_five(perc):
+    print("Top Five Percentages are : ")
+    if len(perc) < 5:
+        start, stop = len(perc) - 1, -1
+    else:
+        start, stop = len(perc) - 1, len(perc) - 6
+
+    for i in range(start, stop, -1):
+        print(perc[i],sep = "\n")
 
 
 
