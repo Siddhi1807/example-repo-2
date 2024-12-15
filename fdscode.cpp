@@ -374,68 +374,34 @@ while s <= 3:
 //Write function for sorting array of floating point numbers in ascending order 
 //using quick sort and display top five scores.     
 
-# Quick Sort function
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[len(arr) // 2]  # Choose middle element as pivot
-    left = [x for x in arr if x < pivot]  # Elements less than pivot
-    middle = [x for x in arr if x == pivot]  # Elements equal to pivot
-    right = [x for x in arr if x > pivot]  # Elements greater than pivot
-    return quick_sort(left) + middle + quick_sort(right)
+def quickSort(arr,low,high):        # It takes array,lowest index and highest index as parameters
+    if low<high:
+        pivot_index = partition(arr,low,high)
+        quickSort(arr,low,pivot_index - 1)
+        quickSort(arr,pivot_index + 1,high)
 
-# Function to display top five scores
-def top_five_scores(arr):
-    # Sort the array
-    sorted_scores = quick_sort(arr)
-    
-    # Display top five scores
-    print("Top 5 scores:")
-    for i in range(min(5, len(sorted_scores))):  # Handle case where there are less than 5 scores
-        print(sorted_scores[-(i + 1)])  # Print from highest to lowest
+def partition(arr,low,high):
+    pivot = arr[high]
+    i = low - 1
+    for j in range(low,high):
+        if arr[j]<=pivot:
+            i+=1
+            arr[i],arr[j] = arr[j],arr[i]
+    arr[i+1],arr[high] = arr[high],arr[i+1]
+    return i+1
 
-# Main program
-n = int(input("Enter the number of students: "))  # Number of students
-scores = []  # List to store the scores
-
-# Input scores from the user
+arr = []
+n=int(input("Enter the number of elements to be inserted : "))
 for i in range(n):
-    score = float(input(f"Enter the percentage of student {i+1}: "))
-    scores.append(score)
+    val=int(input("Enter the elements to be inserted : "))
+    arr.append(val)
 
-# Display top five scores
-top_five_scores(scores)
+print("Before Sorting : ",arr)
 
+quickSort(arr,0,len(arr)-1)
 
+print("After sorting : ",arr)
 
-//Write a python program to store first year percentage of students in array. 
-//Write function for sorting array of floating point numbers in ascending order 
-//using quick sort and display top five scores.
-
-def quick_sort(arr):
-    """Function to perform quick sort on a list of floating point numbers."""
-    if len(arr) <= 1:
-        return arr
-    else:
-        pivot = arr[0]
-        less_than_pivot = [x for x in arr[1:] if x <= pivot]
-        greater_than_pivot = [x for x in arr[1:] if x > pivot]
-        return quick_sort(less_than_pivot) + [pivot] + quick_sort(greater_than_pivot)
-
-# Input: First-year percentages of students
-percentages = []
-n = int(input("Enter the number of students: "))
-for i in range(n):
-    score = float(input(f"Enter the percentage of student {i + 1}: "))
-    percentages.append(score)
-
-# Sort the array using quick sort
-sorted_percentages = quick_sort(percentages)
-
-# Display the top five scores in descending order
-print("Top five scores are:")
-for score in sorted_percentages[-1:-6:-1]:
-    print(score)
 
 
 //Department of Computer Engineering has student's club named 'Pinnacle Club'. 
