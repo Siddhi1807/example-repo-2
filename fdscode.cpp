@@ -402,7 +402,7 @@ quickSort(arr,0,len(arr)-1)
 
 print("After sorting : ",arr)
 	
-# Function for Displaying Top Five Percentages of Students
+// Function for Displaying Top Five Percentages of Students
 
 def display_top_five(perc):
     print("Top Five Percentages are : ")
