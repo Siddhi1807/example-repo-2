@@ -586,21 +586,26 @@ int main() {
     return 0;
 }
 
-Write C++ program for storing binary number using doubly linked lists. Write
-functions
-a) to compute 1„s and 2„s complement
-b) add two binary numberS
+//Write C++ program for storing binary number using doubly linked lists. Write
+//functions
+//a) to compute 1„s and 2„s complement
+//b) add two binary numberS
 
 #include <iostream>
 #include <string>
 
+using namespace std;
+
+// Node structure for the doubly linked list
 struct Node {
-    char bit;
-    Node* next;
+    int data;
     Node* prev;
-    Node(char b) : bit(b), next(nullptr), prev(nullptr) {}
+    Node* next;
+
+    Node(int value) : data(value), prev(nullptr), next(nullptr) {}
 };
 
+// Class to represent a binary number using a doubly linked list
 class BinaryNumber {
 private:
     Node* head;
@@ -609,8 +614,9 @@ private:
 public:
     BinaryNumber() : head(nullptr), tail(nullptr) {}
 
-    void append(char bit) {
-        Node* newNode = new Node(bit);
+    // Function to add a digit to the binary number
+    void append(int value) {
+        Node* newNode = new Node(value);
         if (!head) {
             head = tail = newNode;
         } else {
@@ -620,120 +626,126 @@ public:
         }
     }
 
+    // Function to display the binary number
     void display() {
-        Node* current = head;
-        while (current) {
-            std::cout << current->bit;
-            current = current->next;
+        Node* temp = head;
+        while (temp) {
+            cout << temp->data;
+            temp = temp->next;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
+    // Function to compute 1's complement
     BinaryNumber onesComplement() {
         BinaryNumber result;
-        Node* current = head;
-        while (current) {
-            result.append(current->bit == '0' ? '1' : '0');
-            current = current->next;
+        Node* temp = head;
+        while (temp) {
+            result.append(1 - temp->data);
+            temp = temp->next;
         }
         return result;
     }
 
+    // Function to compute 2's complement
     BinaryNumber twosComplement() {
         BinaryNumber onesComp = onesComplement();
         BinaryNumber result;
-        Node* current = onesComp.tail;
+        Node* temp = onesComp.tail;
         int carry = 1;
-        while (current || carry) {
-            char bit = (current ? current->bit : '0') - '0' + carry;
-            // Convert char to int and add carry
-            if (bit == 2) {
-                result.append('0');
-                carry = 1;
-            } else {
-                result.append('1' - bit); // Convert back to char
-                carry = 0;
-            }
-            if (current) current = current->prev;
-        }
-        // Reverse result to get the correct order
-        return reverse(result);
-    }
 
-    BinaryNumber reverse(const BinaryNumber& num) {
-        BinaryNumber reversed;
-        Node* current = num.tail;
-        while (current) {
-            reversed.append(current->bit);
-            current = current->prev;
-        }
-        return reversed;
-    }
-
-    BinaryNumber add(const BinaryNumber& other) {
-        BinaryNumber result;
-        Node* current1 = tail;
-        Node* current2 = other.tail;
-        int carry = 0;
-        while (current1 || current2 || carry) {
+        while (temp || carry) {
             int sum = carry;
-            if (current1) {
-                sum += current1->bit - '0'; // Convert char to int
-                current1 = current1->prev;
+            if (temp) {
+                sum += temp->data;
+                temp = temp->prev;
             }
-            if (current2) {
-                sum += current2->bit - '0'; // Convert char to int
-                current2 = current2->prev;
-            }
-            result.append((sum % 2) + '0'); // Convert back to char
+            result.append(sum % 2);
             carry = sum / 2;
         }
-        return reverse(result);
+
+        // Reverse the result since we are appending from LSB to MSB
+        result.reverse();
+        return result;
     }
 
-    ~BinaryNumber() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+    // Reverse the linked list (helper function for 2's complement)
+    void reverse() {
+        Node* current = head;
+        Node* prev = nullptr;
+        tail = head;
+
+        while (current) {
+            Node* next = current->next;
+            current->next = prev;
+            current->prev = next;
+            prev = current;
+            current = next;
         }
+        head = prev;
+    }
+
+    // Function to add two binary numbers
+    static BinaryNumber add(BinaryNumber& num1, BinaryNumber& num2) {
+        BinaryNumber result;
+        Node* p1 = num1.tail;
+        Node* p2 = num2.tail;
+        int carry = 0;
+
+        while (p1 || p2 || carry) {
+            int sum = carry;
+            if (p1) {
+                sum += p1->data;
+                p1 = p1->prev;
+            }
+            if (p2) {
+                sum += p2->data;
+                p2 = p2->prev;
+            }
+            result.append(sum % 2);
+            carry = sum / 2;
+        }
+
+        // Reverse the result since we are appending from LSB to MSB
+        result.reverse();
+        return result;
     }
 };
 
 int main() {
-    BinaryNumber bin1, bin2;
+    BinaryNumber binary1, binary2;
 
-    // Input first binary number
-    std::string input1;
-    std::cout << "Enter first binary number: ";
-    std::cin >> input1;
-    for (char bit : input1) {
-        bin1.append(bit);
-    }
+    // Example binary number 1: 1010
+    binary1.append(1);
+    binary1.append(0);
+    binary1.append(1);
+    binary1.append(0);
 
-    // Input second binary number
-    std::string input2;
-    std::cout << "Enter second binary number: ";
-    std::cin >> input2;
-    for (char bit : input2) {
-        bin2.append(bit);
-    }
+    // Example binary number 2: 0111
+    binary2.append(0);
+    binary2.append(1);
+    binary2.append(1);
+    binary2.append(1);
 
-    // Display binary numbers
-    std::cout << "First Binary Number: ";
-    bin1.display();
-    std::cout << "Second Binary Number: ";
-    bin2.display();
+    cout << "Binary 1: ";
+    binary1.display();
+    cout << "Binary 2: ";
+    binary2.display();
 
-    // Compute and display 1's and 2's complement
-    std::cout << "1's Complement of first binary number: ";
-    bin1.onesComplement().display();
-    std::cout << "2's Complement of first binary number: ";
-    bin1.twosComplement().display();
+    // Compute and display 1's complement of binary1
+    BinaryNumber onesComp = binary1.onesComplement();
+    cout << "1's Complement of Binary 1: ";
+    onesComp.display();
 
-    // Add binary numbers and display result
-    std::cout << "Sum of two binary numbers: ";
-    bin1.add(bin2).display();
+    // Compute and display 2's complement of binary1
+    BinaryNumber twosComp = binary1.twosComplement();
+    cout << "2's Complement of Binary 1: ";
+    twosComp.display();
+
+    // Add binary1 and binary2
+    BinaryNumber sum = BinaryNumber::add(binary1, binary2);
+    cout << "Sum of Binary 1 and Binary 2: ";
+    sum.display();
 
     return 0;
 }
