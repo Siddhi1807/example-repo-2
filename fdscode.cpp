@@ -72,7 +72,7 @@ while i<=6:
 			print("The no. of students having maximum marks:",cntmax)
 		case 6:
 			print("This option indictes you have choosen none!")
-
+//if asked for highest frequency.
 def mark_with_highest_frequency(marks):
     """
     Find the mark(s) occurring most frequently, ignoring absentees.
